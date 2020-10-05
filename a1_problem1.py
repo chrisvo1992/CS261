@@ -1,6 +1,6 @@
 # Course: CS261 - Data Structures
 # Student Name: Christopher Vo
-# Assignment: 1
+# Assignment: HW 1 Problem 1
 # Description: Will find the minimum and maximum values for any given StaticArray
 
 
