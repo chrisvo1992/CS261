@@ -26,7 +26,7 @@ def fizz_buzz(arr: StaticArray) -> StaticArray:
         elif arr.get(index) % 5 == 0 and arr.get(index) % 3 != 0: #if only divisible by 5
             new_arr[index] = "buzz"
         elif arr.get(index) % 5 == 0 and arr.get(index) % 3 == 0:#if  divisible by 3 & 5
-            new_arr[index] = "fizzbuz"
+            new_arr[index] = "fizzbuzz"
         else: #if none of above conditions apply
             new_arr[index] = arr.get(index)
 
