@@ -325,19 +325,89 @@ class CircularList:
         """
         TODO: Write this implementation
         """
-        pass
+        if self.is_empty():
+            return
+
+        index1, index2 = 0, self.length()-1
+        for i in range(int(self.length()/2)):
+            self.swap_pairs(index1, index2)
+            index1 += 1
+            index2 -= 1
 
     def sort(self) -> None:
         """
         TODO: Write this implementation
         """
-        pass
+        if self.is_empty():
+            return
+
+
+        for i in range(self.length()-1):
+            for j in range(0, self.length()-i-1):
+                if self.get_value(j) > self.get_value(j+1):
+                    self.swap_pairs(j, j+1)
+
+
+    def get_value(self, index):
+        """
+        helper function for sort method. Will return the value at a specified index
+        """
+        current = self.sentinel.next
+        for i in range(index):
+            current = current.next
+
+        return current.value
+
 
     def rotate(self, steps: int) -> None:
         """
         TODO: Write this implementation
         """
-        pass
+        if steps == 0 or steps == self.length() or self.is_empty():
+            return
+
+        if steps > self.length():
+            steps = steps % self.length()
+
+        if steps > 0 and steps < self.length():
+            current = self.sentinel.prev
+            for i in range(steps-1):
+                current = current.prev
+
+            endNode = self.sentinel.prev
+            firstNode = self.sentinel.next
+
+            endNode.next = firstNode
+            firstNode.prev = endNode
+
+            prev = current.prev
+            current.prev = self.sentinel
+            self.sentinel.prev = prev
+            self.sentinel.next = current
+            prev.next = self.sentinel
+
+        if abs(steps) > self.length():
+            steps = abs(steps) % self.length()
+            steps = steps * -1
+
+        if steps < 0 and abs(steps) < self.length():
+            current = self.sentinel.next
+            steps = abs(steps)
+            endNode = self.sentinel.prev
+            firstNode = self.sentinel.next
+
+            for i in range(steps):
+                current = current.next
+
+            endNode.next = firstNode
+            firstNode.prev = endNode
+            prev = current.prev
+            current.prev = self.sentinel
+            self.sentinel.prev = prev
+            self.sentinel.next = current
+            prev.next = self.sentinel
+
+
 
     def remove_duplicates(self) -> None:
         """
@@ -354,98 +424,21 @@ class CircularList:
 
 if __name__ == '__main__':
 
-    print('\n# reverse example 1')
-    test_cases = (
-        [1, 2, 3, 3, 4, 5],
-        [1, 2, 3, 4, 5],
-        ['A', 'B', 'C', 'D']
-    )
-    for case in test_cases:
-        lst = CircularList(case)
-        lst.reverse()
-        print(lst)
 
-    print('\n# reverse example 2')
-    lst = CircularList()
-    print(lst)
-    lst.reverse()
-    print(lst)
-    lst.add_back(2)
-    lst.add_back(3)
-    lst.add_front(1)
-    lst.reverse()
-    print(lst)
-
-    print('\n# reverse example 3')
-
-
-    class Student:
-        def __init__(self, name, age):
-            self.name, self.age = name, age
-
-        def __eq__(self, other):
-            return self.age == other.age
-
-        def __str__(self):
-            return str(self.name) + ' ' + str(self.age)
-
-
-    s1, s2 = Student('John', 20), Student('Andy', 20)
-    lst = CircularList([s1, s2])
-    print(lst)
-    lst.reverse()
-    print(lst)
-    print(s1 == s2)
-
-    print('\n# reverse example 4')
-    lst = CircularList([1, 'A'])
-    lst.reverse()
-    print(lst)
-    """
-    # print('\n# sort example 1')
-    # test_cases = (
-    #     [1, 10, 2, 20, 3, 30, 4, 40, 5],
-    #     ['zebra2', 'apple', 'tomato', 'apple', 'zebra1'],
-    #     [(1, 1), (20, 1), (1, 20), (2, 20)]
-    # )
-    # for case in test_cases:
-    #     lst = CircularList(case)
-    #     print(lst)
-    #     lst.sort()
-    #     print(lst)
-    #
-    # print('\n# rotate example 1')
-    source = [_ for _ in range(-20, 20, 7)]
-    for steps in [1, 2, 0, -1, -2, 28, -100]:
-        lst = list(source)
-   # print(lst)
-    #
-    # print('\n# rotate example 2')
-    # lst = CircularList([10, 20, 30, 40])
-    # for j in range(-1, 2, 2):
-    #     for _ in range(3):
-    #         lst.rotate(j)
-    #         print(lst)
-    #
-    # print('\n# rotate example 3')
-    # lst = CircularList()
-    # lst.rotate(10)
-    # print(lst)
-    #
-    # print('\n# remove_duplicates example 1')
+    print('\n# remove_duplicates example 1')
     test_cases = (
     [1, 2, 3, 4, 5], [1, 1, 1, 1, 1],
     [], [1], [1, 1], [1, 1, 1, 2, 2, 2],
     [0, 1, 1, 2, 3, 3, 4, 5, 5, 6],list("abccd"),list("005BCDDEEFI")
     )
 
-    #print(list("032hfsha"))
-    # for case in test_cases:
-    #     lst = CircularList(case)
-    #     print('INPUT :', lst)
-    #     lst.remove_duplicates()
-    #     print('OUTPUT:', lst)
-    #
+    print(list("032hfsha"))
+    for case in test_cases:
+        lst = CircularList(case)
+        print('INPUT :', lst)
+        lst.remove_duplicates()
+        print('OUTPUT:', lst)
+    """
     # print('\n# odd_even example 1')
     test_cases = (
     [1, 2, 3, 4, 5], list('ABCDE'),
