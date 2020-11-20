@@ -140,7 +140,7 @@ class HashMap:
 
     def table_load(self) -> float:
         """
-        Will calculate and return the table load of current hash table
+        Will calculate and return the table load of current hash tablea
         """
         return self.size / self.capacity
 
