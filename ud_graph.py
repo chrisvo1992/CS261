@@ -140,31 +140,34 @@ class UndirectedGraph:
     def dfs(self, v_start, v_end=None) -> []:
         """
         TODO: Write this implementation
+
         """
+        #print('next problem'+ str(v_start))
         if v_start not in self.adj_list:
             return []
 
         stack = []
         visited = []
         stack.append(v_start)
+
         while len(stack) != 0:
-            v = stack.pop()
-            print('v = ' + str(v))
+            v = stack.pop(0)
             if v not in visited:
                 visited.append(v)
 
                 if v == v_end:
                     break
 
+                stack2 = []
+
                 for vertex in self.adj_list[v]:
-                    stack.append(vertex)
-                print('stack = ')
-                print(stack)
-                print('visited = ')
-                print(visited)
+                    if vertex not in visited:
+                        stack2.append(vertex)
+
+                stack2 = sorted(stack2)
+                stack = stack2 + stack
 
         return visited
-
 
        
 
@@ -172,13 +175,46 @@ class UndirectedGraph:
         """
         TODO: Write this implementation
         """
+
+        if v_start not in self.adj_list:
+            return []
+
+        #print('next ' + str(v_start))
+
+        stack = []
+        visited = []
+        stack.append(v_start)
+
+        while len(stack) != 0:
+            v = stack.pop(0)
+            #print('v = ' + str(v))
+            if v not in visited:
+                visited.append(v)
+
+            if v == v_end:
+                break
+
+            stack2 = []
+
+            for vertex in self.adj_list[v]:
+                if vertex not in visited:
+                    stack2.append(vertex)
+            #print('stack 2')
+            #print(stack2)
+
+            stack2 = sorted(stack2)
+            stack = stack + stack2
+            #print('stack ')
+            #print(stack)
+
+        return visited
         
 
     def count_connected_components(self):
         """
         TODO: Write this implementation
         """
-      
+
 
     def has_cycle(self):
         """
@@ -192,20 +228,8 @@ class UndirectedGraph:
 if __name__ == '__main__':
 
 
-    """
 
-    print("\nPDF - method dfs() and bfs() example 1")
-    print("--------------------------------------")
-    edges = ['AE', 'AC', 'BE', 'CE', 'CD', 'CB', 'BD', 'ED', 'BH', 'QG', 'FG']
-    g = UndirectedGraph(edges)
-    print(g)
-    test_cases = 'ABCDEGH'
-    for case in test_cases:
-        print(f'{case} DFS:{g.dfs(case)} BFS:{g.bfs(case)}')
-    print('-----')
-    for i in range(1, len(test_cases)):
-        v1, v2 = test_cases[i], test_cases[-1 - i]
-        print(f'{v1}-{v2} DFS:{g.dfs(v1, v2)} BFS:{g.bfs(v1, v2)}')
+
 
 
     print("\nPDF - method count_connected_components() example 1")
@@ -224,6 +248,7 @@ if __name__ == '__main__':
         print(g.count_connected_components(), end=' ')
     print()
 
+    """
 
     print("\nPDF - method has_cycle() example 1")
     print("----------------------------------")
